@@ -2,7 +2,7 @@ from playwright.sync_api import sync_playwright
 
 with sync_playwright() as playwright:
 
-    browser = playwright.chromium.launch(headless=False,slow_mo=4000) #lanuch Browser
+    browser = playwright.chromium.launch(headless=False,slow_mo=2000) #lanuch Browser
     page = browser.new_page() #Create new page 
     page.goto("https://playwright.dev/python/")
 
