@@ -1,15 +1,23 @@
 from playwright.sync_api import sync_playwright
 
-with sync_playwright() as playwright:
+def test_google_homepage():
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=False,slow_mo=2000)  # set True if you don't want UI
+        page = browser.new_page()
 
-    browser = playwright.chromium.launch(headless=False,slow_mo=2000) #lanuch Browser
-    page = browser.new_page() #Create new page 
-    page.goto("https://playwright.dev/python/")
+        # Step 1: Open a website
+        page.goto("https://www.google.com")
 
-    docs_button = page.get_by_role('button', name="log Out")
-    docs_button.click()
+        # Step 2: Validate page title
+        assert "Google" in page.title()
 
-    
+        # Step 3: Check if search box is visible
+        search_box = page.locator("textarea[name='q']")
+        assert search_box.is_visible()
 
-    browser.close()
+        print("✅ Google homepage test passed")
 
+        browser.close()
+
+if __name__ == "__main__":
+    test_google_homepage()
